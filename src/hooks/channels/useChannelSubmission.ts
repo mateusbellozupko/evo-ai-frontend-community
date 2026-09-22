@@ -18,6 +18,7 @@ import {
   WhatsappTwilioPayload,
   WhatsappNotificamePayload,
   WhatsappZapiPayload,
+  WhatsappWahaPayload,
   Inbox,
 } from '@/types/channels/inbox';
 import EvolutionService from '@/services/channels/evolutionService';
@@ -25,6 +26,7 @@ import EvolutionGoService from '@/services/channels/evolutionGoService';
 import EmailOauthService from '@/services/channels/emailOauthService';
 import TwilioService from '@/services/channels/twilioService';
 import NotificameService from '@/services/channels/notificameService';
+import WahaService from '@/services/channels/wahaService';
 import { ChannelType, FormData } from '@/hooks/channels/useChannelForm';
 import { useChannelValidation } from '@/hooks/channels/useChannelValidation';
 import { useReactivateInbox } from '@/hooks/channels/useReactivateInbox';
@@ -247,6 +249,18 @@ export const useChannelSubmission = (form?: FormData) => {
         } catch (error) {
           result = { success: false, error: apiErrorMessage(error) || (error as Error).message };
         }
+      } else if (selectedProvider.id === 'waha') {
+        try {
+          await WahaService.verifyConnection({
+            baseUrl: getStr(form, 'base_url'),
+            apiKey: getStr(form, 'api_key'),
+            sessionName: getStr(form, 'session_name'),
+            phoneNumber: getStr(form, 'phone_number'),
+          });
+          result = { success: true, message: 'Conexão verificada com sucesso' };
+        } catch (error) {
+          result = { success: false, error: apiErrorMessage(error) || (error as Error).message };
+        }
       }
 
       if (result) {
@@ -323,7 +337,8 @@ export const useChannelSubmission = (form?: FormData) => {
         | WhatsappEvolutionGoPayload
         | WhatsappTwilioPayload
         | WhatsappNotificamePayload
-        | WhatsappZapiPayload;
+        | WhatsappZapiPayload
+        | WhatsappWahaPayload;
 
       switch (selectedChannel.type) {
         case 'web_widget': {
@@ -711,6 +726,41 @@ export const useChannelSubmission = (form?: FormData) => {
                 provider_config: providerConfig,
               },
             } as WhatsappEvolutionGoPayload;
+          } else if (selectedProvider.id === 'waha') {
+            // verify connection first -- this call is also what generates and
+            // registers this session's webhook_hmac_key on the backend/WAHA
+            // side, so its response must be captured and threaded into
+            // provider_config below (not persisted anywhere else, since the
+            // /waha/authorization#create endpoint is verify-only and never
+            // creates a Channel::Whatsapp itself).
+            let wahaVerification;
+            try {
+              wahaVerification = await WahaService.verifyConnection({
+                baseUrl: getStr(form, 'base_url'),
+                apiKey: getStr(form, 'api_key'),
+                sessionName: getStr(form, 'session_name'),
+                phoneNumber: getStr(form, 'phone_number'),
+              });
+            } catch (error) {
+              throw new Error(
+                apiErrorMessage(error) || (error as Error).message || 'Falha na verificação do WAHA',
+              );
+            }
+            payload = {
+              name: getStr(form, 'name') || 'WhatsApp WAHA',
+              display_name: getStr(form, 'display_name') || getStr(form, 'name') || 'WhatsApp WAHA',
+              channel: {
+                type: 'whatsapp',
+                provider: 'waha',
+                phone_number: getStr(form, 'phone_number'),
+                provider_config: {
+                  base_url: getStr(form, 'base_url'),
+                  api_key: getStr(form, 'api_key'),
+                  session_name: getStr(form, 'session_name'),
+                  webhook_hmac_key: wahaVerification?.webhook_hmac_key,
+                },
+              },
+            } as WhatsappWahaPayload;
           } else if (selectedProvider.id === 'zapi') {
             payload = {
               name: getStr(form, 'name') || 'WhatsApp Z-API',
