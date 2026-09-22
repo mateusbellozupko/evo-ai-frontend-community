@@ -389,7 +389,7 @@ const WahaWhatsAppConfig: React.FC<{
                     'settings.configuration.whatsapp.instance.connection.adminTokenPlaceholder',
                   )}
                 />
-                {providerConfig.api_key && (
+                {Boolean(providerConfig.api_key) && (
                   <p className="mt-1 text-xs text-muted-foreground">
                     {t(
                       'settings.configuration.whatsapp.instance.connection.adminTokenSet',

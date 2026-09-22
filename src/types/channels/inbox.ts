@@ -33,6 +33,7 @@ export interface Inbox {
   archived_at?: string | null;
   provider?: string;
   provider_config?: Record<string, unknown>;
+  provider_connection?: Record<string, unknown>;
   // Channel-specific fields
   medium?: string;
   phone_number?: string;
