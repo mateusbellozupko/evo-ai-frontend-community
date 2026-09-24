@@ -723,6 +723,8 @@
         "allowPipelineManipulationDescription": "Consente all'agente di spostare le conversazioni tra pipeline e fasi in base alle regole configurate",
         "allowManageLabels": "Consentire la gestione delle etichette",
         "allowManageLabelsDescription": "Consente all'agente di aggiungere e rimuovere etichette nella conversazione corrente",
+        "allowTransferToNamedPerson": "Consentire il trasferimento a una persona specifica",
+        "allowTransferToNamedPersonDescription": "Quando il cliente chiede di parlare con una persona specifica per nome, l'agente conferma e trasferisce direttamente a lei (oltre alle regole per reparto sopra)",
         "configureRules": "Configura regole",
         "configureAutomation": "Automazione",
         "timezone": "Fuso orario dell'agente",

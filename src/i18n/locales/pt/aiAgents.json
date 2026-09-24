@@ -728,6 +728,8 @@
         "allowPipelineManipulationDescription": "Permite que o agente mova conversas entre pipelines e estágios conforme regras definidas",
         "allowManageLabels": "Permitir gerir etiquetas",
         "allowManageLabelsDescription": "Permite que o agente adicione e remova etiquetas da conversa atual",
+        "allowTransferToNamedPerson": "Permitir transferir para pessoa específica",
+        "allowTransferToNamedPersonDescription": "Quando o cliente pedir por uma pessoa pelo nome, o agente confirma e transfere diretamente para ela (fora das regras de departamento acima)",
         "timezone": "Timezone do agente",
         "timezoneDescription": "Define o fuso horário usado pelo agente para agendamentos e lembretes",
         "sendAsReply": "Enviar mensagem como resposta na conversa",

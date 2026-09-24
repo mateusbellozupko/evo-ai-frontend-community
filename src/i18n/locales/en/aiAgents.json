@@ -738,6 +738,8 @@
         "allowProductSalesDescription": "Lets the agent attach sold products to the pipeline card during the conversation",
         "allowManageLabels": "Allow label management",
         "allowManageLabelsDescription": "Allows the agent to add and remove labels on the current conversation",
+        "allowTransferToNamedPerson": "Allow transfer to a specific person",
+        "allowTransferToNamedPersonDescription": "When the customer asks by name for a specific person, the agent confirms and transfers directly to them (separate from the department rules above)",
         "timezone": "Agent timezone",
         "timezoneDescription": "Defines the timezone used by the agent for scheduling and reminders",
         "sendAsReply": "Send message as reply in conversation",

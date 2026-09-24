@@ -130,6 +130,7 @@ const AgentEditPage = () => {
     allowContactEdit: false,
     allowManageLabels: false,
     allowProductSales: false,
+    allowTransferToNamedPerson: false,
     timezone: 'America/Sao_Paulo',
     sendAsReply: false,
   });
@@ -446,6 +447,8 @@ const AgentEditPage = () => {
           allowContactEdit: (config?.allow_contact_edit as boolean) || false,
           allowManageLabels: (config?.allow_manage_labels as boolean) || false,
           allowProductSales: (config?.allow_product_sales as boolean) || false,
+          allowTransferToNamedPerson:
+            (config?.allow_transfer_to_named_person as boolean) || false,
           timezone: (config?.timezone as string) || 'America/Sao_Paulo',
           sendAsReply: (config?.send_as_reply as boolean) || false,
         });
@@ -654,6 +657,7 @@ const AgentEditPage = () => {
           allow_contact_edit: behaviorSettings.allowContactEdit,
           allow_manage_labels: behaviorSettings.allowManageLabels,
           allow_product_sales: behaviorSettings.allowProductSales,
+          allow_transfer_to_named_person: behaviorSettings.allowTransferToNamedPerson,
           timezone: behaviorSettings.timezone,
           send_as_reply: behaviorSettings.sendAsReply,
           inactivity_actions: inactivityActions,
@@ -696,6 +700,7 @@ const AgentEditPage = () => {
           allow_contact_edit: behaviorSettings.allowContactEdit,
           allow_manage_labels: behaviorSettings.allowManageLabels,
           allow_product_sales: behaviorSettings.allowProductSales,
+          allow_transfer_to_named_person: behaviorSettings.allowTransferToNamedPerson,
           timezone: behaviorSettings.timezone,
           send_as_reply: behaviorSettings.sendAsReply,
           inactivity_actions: inactivityActions,
@@ -736,6 +741,7 @@ const AgentEditPage = () => {
           allow_contact_edit: behaviorSettings.allowContactEdit,
           allow_manage_labels: behaviorSettings.allowManageLabels,
           allow_product_sales: behaviorSettings.allowProductSales,
+          allow_transfer_to_named_person: behaviorSettings.allowTransferToNamedPerson,
           timezone: behaviorSettings.timezone,
           send_as_reply: behaviorSettings.sendAsReply,
           inactivity_actions: inactivityActions,
@@ -792,6 +798,7 @@ const AgentEditPage = () => {
           allow_contact_edit: behaviorSettings.allowContactEdit,
           allow_manage_labels: behaviorSettings.allowManageLabels,
           allow_product_sales: behaviorSettings.allowProductSales,
+          allow_transfer_to_named_person: behaviorSettings.allowTransferToNamedPerson,
           timezone: behaviorSettings.timezone,
           send_as_reply: behaviorSettings.sendAsReply,
           inactivity_actions: inactivityActions,
