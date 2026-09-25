@@ -73,7 +73,22 @@ const makeEmptyRule = (): StageAutomationRule => ({
 });
 
 const CONVERSATION_STATUSES = ['open', 'resolved', 'pending', 'snoozed'] as const;
-const INACTIVITY_MINUTES = [2, 5, 10, 15, 30, 60, 120, 240, 480, 720, 1440] as const;
+const INACTIVITY_MINUTES = [
+  2, 5, 10, 15, 30, 60, 120, 240, 480, 720,
+  1440,   // 1d
+  2880,   // 2d
+  4320,   // 3d
+  7200,   // 5d
+  10080,  // 7d
+  14400,  // 10d
+  20160,  // 14d
+  21600,  // 15d
+  30240,  // 21d
+  43200,  // 30d
+  64800,  // 45d
+  86400,  // 60d
+  129600, // 90d
+] as const;
 const INACTIVITY_BASES: InactivityBase[] = ['no_customer_reply', 'stage_stagnation'];
 
 const ANY_VALUE_SENTINEL = '__any__';
@@ -142,8 +157,12 @@ export default function StageAutomationRules({
     if (m < 60 || m % 60 !== 0) {
       return `${m} ${t('stageAutomation.inactivity.minutes')}`;
     }
-    const h = m / 60;
-    return `${h} ${t(h === 1 ? 'stageAutomation.inactivity.hour' : 'stageAutomation.inactivity.hours')}`;
+    if (m < 1440 || m % 1440 !== 0) {
+      const h = m / 60;
+      return `${h} ${t(h === 1 ? 'stageAutomation.inactivity.hour' : 'stageAutomation.inactivity.hours')}`;
+    }
+    const d = m / 1440;
+    return `${d} ${t(d === 1 ? 'stageAutomation.inactivity.day' : 'stageAutomation.inactivity.days')}`;
   };
 
   const renderTriggerValue = (rule: StageAutomationRule, index: number) => {
