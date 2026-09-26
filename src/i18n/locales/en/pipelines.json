@@ -76,6 +76,7 @@
     "noItemsAvailable": "No item available",
     "notes": "Observations (optional)",
     "notesPlaceholder": "Add observations about this item in the pipeline...",
+    "customAttributes": "Custom Attributes",
     "unknownUser": "Unknown User",
     "loading": "Loading...",
     "adding": "Adding...",
